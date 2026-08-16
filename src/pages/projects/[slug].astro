@@ -1,0 +1,120 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Img from '../../components/Img.astro';
+import Layout from '../../layouts/Layout.astro';
+import { clipMeta, pageTitle } from '../../lib/seo';
+import { photo } from '../../lib/images';
+import { site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const index = all.findIndex((item) => item.id === project.id);
+const prev = all[(index - 1 + all.length) % all.length];
+const next = all[(index + 1) % all.length];
+const title = pageTitle(project.data.seoTitle, site.name);
+const description = clipMeta(project.data.seoDescription);
+const canonicalPath = `/projects/${project.id}`;
+const workLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.data.title,
+  description: project.data.excerpt,
+  dateCreated: String(project.data.year),
+  genre: project.data.typology,
+  image: photo(project.data.cover, 1200),
+  url: new URL(canonicalPath, Astro.site ?? site.url).toString(),
+  creator: {
+    '@type': 'Architect',
+    name: site.name,
+    email: site.email,
+  },
+};
+---
+
+<Layout title={title} description={description} image={project.data.cover} jsonLd={workLd}>
+  <article>
+    <header class="relative min-h-[70svh] md:min-h-[85svh]">
+      <Img
+        id={project.data.cover}
+        alt={`${project.data.title} — ${project.data.typology} project by BXR Architect`}
+        sizes="100vw"
+        priority
+        class="absolute inset-0 h-full w-full"
+        width={1920}
+        height={1280}
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-night/75 via-night/20 to-transparent"></div>
+      <div class="page-wrap relative flex min-h-[70svh] flex-col justify-end pb-12 pt-28 md:min-h-[85svh] md:pb-16">
+        <p class="text-[11px] uppercase tracking-[0.22em] text-paper/80">
+          {project.data.typology}
+          <span class="mx-2">·</span>
+          {project.data.location}
+          <span class="mx-2">·</span>
+          {project.data.year}
+        </p>
+        <h1 class="mt-3 font-serif text-5xl font-medium text-paper md:text-7xl">{project.data.title}</h1>
+      </div>
+    </header>
+
+    <div class="page-wrap grid gap-12 py-14 md:grid-cols-[1.2fr_0.8fr] md:gap-20 md:py-20">
+      <div class="prose-story space-y-5 text-[17px] font-light leading-relaxed text-ink/90">
+        <Content />
+      </div>
+      <aside class="space-y-10 md:pt-1">
+        <div>
+          <h2 class="text-[11px] uppercase tracking-[0.2em] text-brass">Brief</h2>
+          <p class="mt-3 text-sm font-light leading-relaxed text-muted">{project.data.brief}</p>
+        </div>
+        <div>
+          <h2 class="text-[11px] uppercase tracking-[0.2em] text-brass">Response</h2>
+          <p class="mt-3 text-sm font-light leading-relaxed text-muted">{project.data.response}</p>
+        </div>
+        <div>
+          <h2 class="text-[11px] uppercase tracking-[0.2em] text-brass">Materials</h2>
+          <ul class="mt-3 space-y-1 text-sm font-light text-muted">
+            {project.data.materials.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="page-wrap grid gap-4 pb-16 sm:grid-cols-2 md:pb-24">
+      {
+        project.data.gallery.map((id, i) => (
+          <Img
+            id={id}
+            alt={`${project.data.title} gallery ${i + 1} — BXR Architect`}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="aspect-[4/5] w-full sm:aspect-[5/4]"
+          />
+        ))
+      }
+    </div>
+
+    <nav class="border-t border-line" aria-label="More projects">
+      <div class="page-wrap grid grid-cols-2 py-8 md:py-10">
+        <a href={`/projects/${prev.id}`} class="pr-4">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-muted">Previous</p>
+          <p class="mt-1 font-serif text-xl font-medium md:text-2xl">{prev.data.title}</p>
+        </a>
+        <a href={`/projects/${next.id}`} class="border-l border-line pl-4 text-right">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-muted">Next</p>
+          <p class="mt-1 font-serif text-xl font-medium md:text-2xl">{next.data.title}</p>
+        </a>
+      </div>
+    </nav>
+  </article>
+</Layout>

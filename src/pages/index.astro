@@ -1,0 +1,168 @@
+---
+import { getCollection } from 'astro:content';
+import Img from '../components/Img.astro';
+import Layout from '../layouts/Layout.astro';
+import { clipMeta, pageTitle } from '../lib/seo';
+import { processSteps, site } from '../lib/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const title = pageTitle('', site.name, site.tagline);
+const description = clipMeta(site.description);
+---
+
+<Layout title={title} description={description} image="photo-1600585154340-be6161a56a0c">
+  <section class="relative min-h-[100svh]">
+    <Img
+      id="photo-1600585154340-be6161a56a0c"
+      alt="Placeholder: a contemporary house with a calm, linear facade — BXR Architect"
+      sizes="100vw"
+      priority
+      class="absolute inset-0 h-full w-full"
+      width={1920}
+      height={1280}
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-night/80 via-night/25 to-night/10"></div>
+    <div class="page-wrap relative flex min-h-[100svh] flex-col justify-end pb-16 pt-28 md:pb-24">
+      <p class="text-[11px] uppercase tracking-[0.28em] text-paper/80">Architecture · Interiors</p>
+      <h1 class="mt-4 max-w-4xl font-serif text-[2.6rem] font-medium leading-[1.05] text-paper sm:text-6xl lg:text-7xl">
+        Architecture and interiors — space, soul, story
+      </h1>
+      <p class="mt-6 max-w-xl text-base font-light text-paper/85 md:text-lg">
+        BXR Architect is a team studio. We design buildings and rooms that hold how people live.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a
+          href="/projects"
+          class="inline-flex h-12 items-center justify-center bg-paper px-6 text-[12px] uppercase tracking-[0.18em] text-ink"
+        >
+          View work
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex h-12 items-center justify-center border border-paper/50 px-6 text-[12px] uppercase tracking-[0.18em] text-paper"
+        >
+          Start a project
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-wrap grid gap-10 py-16 md:grid-cols-[1.1fr_0.9fr] md:gap-20 md:py-28">
+    <div>
+      <p class="text-[11px] uppercase tracking-[0.22em] text-brass">The studio</p>
+      <h2 class="mt-3 font-serif text-4xl font-medium md:text-5xl">Space, soul, story</h2>
+    </div>
+    <div class="space-y-5 text-[17px] font-light leading-relaxed text-muted">
+      <p>
+        <strong class="font-medium text-ink">Space</strong> is the plan and the light — how a plot becomes rooms that breathe.
+      </p>
+      <p>
+        <strong class="font-medium text-ink">Soul</strong> is how the place feels at 4 p.m., with the heat and the noise outside.
+      </p>
+      <p>
+        <strong class="font-medium text-ink">Story</strong> is why this building exists: a family, a cafe, a lobby, a way of working.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-y border-line py-16 md:py-24">
+    <div class="page-wrap">
+      <div class="mb-10 flex items-end justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Selected work</p>
+          <h2 class="mt-2 font-serif text-4xl font-medium md:text-5xl">Projects</h2>
+        </div>
+        <a href="/projects" class="hidden text-[12px] uppercase tracking-[0.16em] text-muted hover:text-ink md:inline">
+          All projects
+        </a>
+      </div>
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          projects.map((project) => (
+            <a href={`/projects/${project.id}`} class="group block">
+              <div class="overflow-hidden">
+                <Img
+                  id={project.data.cover}
+                  alt={`${project.data.title} — ${project.data.typology}, ${project.data.location}`}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  class="aspect-[4/5] w-full transition duration-700 group-hover:scale-[1.03]"
+                />
+              </div>
+              <h3 class="mt-4 font-serif text-2xl font-medium">{project.data.title}</h3>
+              <p class="mt-1 text-sm text-muted">
+                {project.data.typology}
+                <span class="mx-2 text-brass">·</span>
+                {project.data.year}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+      <a
+        href="/projects"
+        class="mt-10 inline-flex md:hidden text-[12px] uppercase tracking-[0.16em] text-muted"
+      >
+        All projects
+      </a>
+    </div>
+  </section>
+
+  <section class="page-wrap py-16 md:py-24">
+    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">What we do</p>
+    <h2 class="mt-2 font-serif text-4xl font-medium md:text-5xl">Services</h2>
+    <div class="mt-12 grid gap-px bg-line md:grid-cols-3">
+      <a href="/services/architecture" class="bg-paper p-8 transition hover:bg-ink/[0.02] md:p-10">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">01</p>
+        <h3 class="mt-4 font-serif text-3xl font-medium">Architecture</h3>
+        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
+          Houses, extensions, and commercial shells. Concept to working drawings and site review.
+        </p>
+      </a>
+      <a href="/services/interior-design" class="bg-paper p-8 transition hover:bg-ink/[0.02] md:p-10">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">02</p>
+        <h3 class="mt-4 font-serif text-3xl font-medium">Interior design</h3>
+        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
+          Apartments, villas, workplaces, and hospitality. Layout, materials, furniture, lighting.
+        </p>
+      </a>
+      <a href="/services" class="bg-paper p-8 transition hover:bg-ink/[0.02] md:p-10">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">03</p>
+        <h3 class="mt-4 font-serif text-3xl font-medium">Consultancy</h3>
+        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
+          Spatial briefs, feasibility, and a second pair of eyes on a plan already in motion.
+        </p>
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-ink text-paper">
+    <div class="page-wrap py-16 md:py-24">
+      <p class="text-[11px] uppercase tracking-[0.22em] text-brass-light">How we work</p>
+      <h2 class="mt-2 font-serif text-4xl font-medium md:text-5xl">Process</h2>
+      <ol class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          processSteps.map((step) => (
+            <li>
+              <p class="text-[11px] uppercase tracking-[0.2em] text-brass-light">{step.n}</p>
+              <h3 class="mt-3 font-serif text-2xl font-medium">{step.title}</h3>
+              <p class="mt-2 text-sm font-light leading-relaxed text-paper/70">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="page-wrap py-20 text-center md:py-28">
+    <h2 class="font-serif text-4xl font-medium md:text-6xl">Start a project</h2>
+    <p class="mx-auto mt-4 max-w-md font-light text-muted">
+      Send a brief — plot, programme, timeline. We reply with next steps.
+    </p>
+    <a
+      href="/contact"
+      class="mt-8 inline-flex h-12 items-center justify-center bg-ink px-8 text-[12px] uppercase tracking-[0.18em] text-paper"
+    >
+      Contact the studio
+    </a>
+  </section>
+</Layout>

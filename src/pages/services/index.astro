@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { clipMeta, pageTitle } from '../../lib/seo';
+import { site } from '../../lib/site';
+
+const title = pageTitle('Architecture and Interior Design', site.name);
+const description = clipMeta(
+  'Architecture, interior design, and spatial consultancy from BXR Architect. From first sketch to site review.',
+);
+---
+
+<Layout title={title} description={description}>
+  <section class="page-wrap py-14 md:py-20">
+    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
+    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">
+      Architecture and interior design
+    </h1>
+    <p class="mt-5 max-w-2xl text-lg font-light leading-relaxed text-muted">
+      From first sketch to site. One team, one language of space — the envelope and the room drawn together.
+    </p>
+
+    <div class="mt-14 grid gap-8 md:grid-cols-2">
+      <a href="/services/architecture" class="group border border-line p-8 md:p-10">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">01</p>
+        <h2 class="mt-4 font-serif text-3xl font-medium group-hover:text-brass">Architectural design</h2>
+        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
+          New homes, extensions, and commercial shells. Concept, drawings, and site review.
+        </p>
+      </a>
+      <a href="/services/interior-design" class="group border border-line p-8 md:p-10">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">02</p>
+        <h2 class="mt-4 font-serif text-3xl font-medium group-hover:text-brass">Interior design</h2>
+        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
+          Apartments, villas, workplaces, and hospitality. Layout, materials, furniture, lighting.
+        </p>
+      </a>
+    </div>
+
+    <div class="mt-14 max-w-2xl">
+      <h2 class="font-serif text-3xl font-medium">Consultancy</h2>
+      <p class="mt-3 font-light leading-relaxed text-muted">
+        Sometimes the need is not a full commission. We help with spatial briefs, feasibility on a plot, or a
+        review of drawings already in progress. Write to the studio with what you have.
+      </p>
+      <a
+        href="/contact"
+        class="mt-8 inline-flex h-12 items-center justify-center bg-ink px-6 text-[12px] uppercase tracking-[0.18em] text-paper"
+      >
+        Start a brief
+      </a>
+    </div>
+  </section>
+</Layout>

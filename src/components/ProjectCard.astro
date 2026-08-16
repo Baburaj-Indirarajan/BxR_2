@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Img from './Img.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const href = `/projects/${project.id}`;
+---
+
+<a
+  href={href}
+  class="group block"
+  data-typology={project.data.typology}
+>
+  <article>
+    <div class="overflow-hidden bg-ink/5">
+      <Img
+        id={project.data.cover}
+        alt={`${project.data.title} — ${project.data.typology}, ${project.data.location}`}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        class="aspect-[4/5] w-full transition duration-700 group-hover:scale-[1.03]"
+        width={1200}
+        height={1500}
+      />
+    </div>
+    <div class="mt-4 flex items-baseline justify-between gap-3">
+      <h2 class="font-serif text-2xl font-medium tracking-tight text-ink md:text-[1.65rem]">
+        {project.data.title}
+      </h2>
+      <span class="shrink-0 text-[11px] uppercase tracking-[0.18em] text-muted">
+        {project.data.year}
+      </span>
+    </div>
+    <p class="mt-1 text-sm text-muted">
+      {project.data.typology}
+      <span class="mx-2 text-brass">·</span>
+      {project.data.location}
+    </p>
+  </article>
+</a>

@@ -1,0 +1,47 @@
+---
+import { site } from '../lib/site';
+import { photo } from '../lib/images';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { title, description, image, jsonLd, noindex = false } = Astro.props;
+const origin = Astro.site ?? new URL(site.url);
+const canonical =
+  Astro.url.pathname === '/'
+    ? new URL('/', origin).href
+    : new URL(Astro.url.pathname, origin).href.replace(/\/$/, '');
+const ogImage = image
+  ? image.startsWith('http')
+    ? image
+    : photo(image, 1200)
+  : photo('photo-1600585154340-be6161a56a0c', 1200);
+const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+{noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow" />}
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content="en_IN" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+{
+  jsonLdList.map((block) => (
+    <script type="application/ld+json" set:html={JSON.stringify(block)} />
+  ))
+}

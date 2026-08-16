@@ -1,0 +1,20 @@
+---
+import { site } from '../lib/site';
+---
+
+<div
+  class="fixed inset-x-0 bottom-0 z-40 flex border-t border-line bg-paper/95 backdrop-blur-md md:hidden"
+>
+  <a
+    href={`tel:${site.telephone}`}
+    class="flex h-12 flex-1 items-center justify-center text-[11px] uppercase tracking-[0.18em] text-ink"
+  >
+    Call
+  </a>
+  <a
+    href={site.whatsappUrl}
+    class="flex h-12 flex-1 items-center justify-center border-l border-line bg-ink text-[11px] uppercase tracking-[0.18em] text-paper"
+  >
+    WhatsApp
+  </a>
+</div>

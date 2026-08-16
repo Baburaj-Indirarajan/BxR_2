@@ -1,0 +1,71 @@
+---
+import Img from '../components/Img.astro';
+import Layout from '../layouts/Layout.astro';
+import { clipMeta, pageTitle } from '../lib/seo';
+import { processSteps, site, team } from '../lib/site';
+
+const title = pageTitle('About the Studio', site.name);
+const description = clipMeta(
+  'Meet BXR Architect — a team for architecture and interiors. Space, soul, story. From brief to site.',
+);
+---
+
+<Layout title={title} description={description} image="photo-1507003211169-0a1dd7228f2d">
+  <section class="page-wrap py-14 md:py-20">
+    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Studio</p>
+    <h1 class="mt-3 font-serif text-4xl font-medium md:text-6xl">The studio</h1>
+    <div class="mt-8 grid gap-10 md:grid-cols-2 md:gap-16">
+      <p class="text-lg font-light leading-relaxed text-ink/90">
+        BXR Architect is a team working at the meeting of architecture and interiors. We start with how a
+        place is used, then draw the envelope and the room as one.
+      </p>
+      <p class="font-light leading-relaxed text-muted">
+        The tagline is the method. Space is the plan and the light. Soul is the feel of the room when it is
+        occupied. Story is the reason the building exists — a family, a cafe, a place of work. Placeholder
+        portraits below; names and photographs will be replaced with the studio team.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-y border-line py-14 md:py-20">
+    <div class="page-wrap">
+      <h2 class="font-serif text-3xl font-medium md:text-4xl">How we work</h2>
+      <ol class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          processSteps.map((step) => (
+            <li>
+              <p class="text-[11px] uppercase tracking-[0.2em] text-brass">{step.n}</p>
+              <h3 class="mt-3 font-serif text-2xl font-medium">{step.title}</h3>
+              <p class="mt-2 text-sm font-light leading-relaxed text-muted">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="page-wrap py-14 md:py-20">
+    <h2 class="font-serif text-3xl font-medium md:text-4xl">Team</h2>
+    <p class="mt-3 max-w-xl text-sm font-light text-muted">
+      Roles are real. Names and faces are placeholders until the studio supplies portraits.
+    </p>
+    <ul class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        team.map((member) => (
+          <li>
+            <Img
+              id={member.photo}
+              alt={`Placeholder portrait — ${member.role} at BXR Architect`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              class="aspect-[4/5] w-full grayscale"
+              width={800}
+              height={1000}
+            />
+            <h3 class="mt-4 font-serif text-2xl font-medium">{member.role}</h3>
+            <p class="mt-2 text-sm font-light leading-relaxed text-muted">{member.focus}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>

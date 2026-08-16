@@ -1,0 +1,94 @@
+---
+import { nav, site } from '../lib/site';
+
+const raw = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = raw === '' ? '/' : raw;
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-md"
+>
+  <div class="page-wrap flex h-16 items-center justify-between md:h-[4.25rem]">
+    <a href="/" class="group flex items-baseline gap-2 no-underline">
+      <span class="font-serif text-[1.35rem] font-semibold tracking-tight text-ink md:text-[1.5rem]">
+        BXR
+      </span>
+      <span class="text-[10px] uppercase tracking-[0.28em] text-muted">Architect</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={current === item.href ? 'page' : undefined}
+            class:list={[
+              'text-[13px] uppercase tracking-[0.16em] transition-colors hover:text-ink',
+              current === item.href ? 'text-ink' : 'text-muted',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <button
+      id="menu-btn"
+      type="button"
+      class="inline-flex h-11 w-11 items-center justify-center text-ink md:hidden"
+      aria-controls="menu-panel"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true">
+        <path d="M0 1h22M0 7h22M0 13h22" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div
+  id="menu-panel"
+  class="fixed inset-0 z-40 hidden bg-paper px-6 pt-24 md:hidden"
+  hidden
+>
+  <nav class="flex flex-col gap-2" aria-label="Mobile">
+    {
+      nav.map((item) => (
+        <a
+          href={item.href}
+          class="font-serif text-4xl font-medium text-ink"
+          aria-current={current === item.href ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <a href={`mailto:${site.email}`} class="mt-8 text-sm text-muted">{site.email}</a>
+    <a href={`tel:${site.telephone}`} class="text-sm text-muted">{site.phoneDisplay}</a>
+  </nav>
+</div>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const panel = document.getElementById('menu-panel');
+  if (btn && panel) {
+    const setOpen = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      panel.hidden = !open;
+      panel.classList.toggle('hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    btn.addEventListener('click', () => {
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+</script>
