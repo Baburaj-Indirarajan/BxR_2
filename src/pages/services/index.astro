@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ServiceIcon from '../../components/ServiceIcon.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
@@ -10,32 +11,32 @@ const description = clipMeta(
 
 const services = [
   {
-    number: '01',
+    icon: 'approval',
     title: 'Plan approval',
     text: 'Clear guidance and documentation to help move your project through the approval process.',
   },
   {
-    number: '02',
+    icon: 'architecture',
     title: 'Planning & Architectural Design',
     text: 'Thoughtful plans and practical designs shaped around how you want to live or work.',
   },
   {
-    number: '03',
+    icon: 'interior',
     title: 'Interior design',
     text: 'Coordinated layouts, materials, furniture, and lighting for rooms that feel complete.',
   },
   {
-    number: '04',
+    icon: 'construction',
     title: 'Construction',
     text: 'Reliable support from drawings to site, keeping the design clear through construction.',
   },
   {
-    number: '05',
+    icon: 'renovation',
     title: 'Renovation',
     text: 'Sensitive updates that improve existing spaces while respecting what already works.',
   },
   {
-    number: '06',
+    icon: 'product',
     title: 'Product design',
     text: 'Considered objects and details that bring the same care and clarity to everyday use.',
   },
@@ -73,7 +74,9 @@ const services = [
             }
             class="group bg-paper p-8 md:p-10"
           >
-            <p class="text-[11px] uppercase tracking-[0.2em] text-brass">{service.number}</p>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brass/40 text-brass">
+              <ServiceIcon name={service.icon} size={24} />
+            </span>
             <h2 class="mt-4 font-serif text-3xl font-medium group-hover:text-brass">{service.title}</h2>
             <p class="mt-3 text-sm font-light leading-relaxed text-muted">{service.text}</p>
           </a>
@@ -81,18 +84,5 @@ const services = [
       }
     </div>
 
-    <div class="mt-14 max-w-2xl">
-      <h2 class="font-serif text-3xl font-medium">Consultancy</h2>
-      <p class="mt-3 font-light leading-relaxed text-muted">
-        Sometimes the need is not a full commission. We help with spatial briefs, feasibility on a plot, or a
-        review of drawings already in progress. Write to the studio with what you have.
-      </p>
-      <a
-        href="/contact"
-        class="mt-8 inline-flex h-12 items-center justify-center bg-ink px-6 text-[12px] uppercase tracking-[0.18em] text-paper"
-      >
-        Start a brief
-      </a>
-    </div>
   </section>
 </Layout>

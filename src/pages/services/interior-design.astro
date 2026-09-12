@@ -1,95 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
-import Img from '../../components/Img.astro';
-import Layout from '../../layouts/Layout.astro';
+import ServicePage from '../../components/ServicePage.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
-const related = (await getCollection('projects'))
-  .filter((project) => project.data.typology === 'Interiors')
-  .sort((a, b) => a.data.order - b.data.order);
-
 const title = pageTitle('Interior Design', site.name);
-const description = clipMeta(
-  'Refined interior design services in Chennai and Tamil Nadu from BXR Architect.',
-);
+const description = clipMeta('Refined residential and commercial interior design services in Chennai from BXR Architect.');
 ---
 
-<Layout title={title} description={description} image="photo-1618221195710-dd6b41faaea6">
-  <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
-    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">Interior design</h1>
-    <div class="mt-10 max-w-3xl space-y-6 text-lg font-light leading-relaxed text-muted">
-      <h2 class="font-serif text-3xl font-medium text-ink md:text-4xl">Refined Interiors. Designed for Living.</h2>
-      <p>BXR Architect creates sophisticated interiors defined by simplicity, functionality, and thoughtful detailing.</p>
-      <p>
-        Our <strong class="font-medium text-ink">interior design services in Chennai and Tamil Nadu</strong> cover
-        residential, commercial, and bespoke spaces. We carefully compose layouts, materials, lighting, furniture,
-        textures, and finishes to create interiors that feel cohesive, comfortable, and timeless.
-      </p>
-      <p>
-        Rather than following temporary trends, we focus on creating spaces with enduring character — environments
-        that reflect the architecture, the purpose of the space, and the individuality of the people who use it.
-      </p>
-    </div>
-
-    <div class="mt-12 border-t border-line pt-6">
-      <p class="text-sm font-medium leading-relaxed text-ink">
-        <span class="text-brass">Services:</span> Residential Interiors • Commercial Interiors • Space Planning •
-        Material &amp; Finish Selection • Lighting Design • Custom Furniture • 3D Interior Visualization
-      </p>
-    </div>
-
-    <ul class="mt-12 grid gap-8 sm:grid-cols-2">
-      <li class="border-t border-line pt-6">
-        <h2 class="font-serif text-2xl font-medium">Homes</h2>
-        <p class="mt-2 text-sm font-light leading-relaxed text-muted">
-          Apartments and villas. Built-in storage, kitchens that face life, finishes that age.
-        </p>
-      </li>
-      <li class="border-t border-line pt-6">
-        <h2 class="font-serif text-2xl font-medium">Work and hospitality</h2>
-        <p class="mt-2 text-sm font-light leading-relaxed text-muted">
-          Studios, cafes, and lobbies where the furniture is part of the plan, not leftover.
-        </p>
-      </li>
-      <li class="border-t border-line pt-6">
-        <h2 class="font-serif text-2xl font-medium">What you get</h2>
-        <p class="mt-2 text-sm font-light leading-relaxed text-muted">
-          Layout, material palette, furniture, lighting, and drawings the contractor can follow.
-        </p>
-      </li>
-      <li class="border-t border-line pt-6">
-        <h2 class="font-serif text-2xl font-medium">With architecture</h2>
-        <p class="mt-2 text-sm font-light leading-relaxed text-muted">
-          When we also do the building, interiors are not a second language. One studio, one set of details.
-        </p>
-      </li>
-    </ul>
-  </section>
-
-  <section class="border-t border-line py-14 md:py-20">
-    <div class="page-wrap">
-      <h2 class="font-serif text-3xl font-medium">Related projects</h2>
-      <div class="mt-10 grid gap-10 sm:grid-cols-2">
-        {
-          related.map((project) => (
-            <a href={`/projects/${project.id}`} class="group block">
-              <Img
-                id={project.data.cover}
-                alt={`${project.data.title} — interior design by BXR Architect`}
-                sizes="(max-width: 640px) 100vw, 50vw"
-                class="aspect-[4/5] w-full"
-              />
-              <h3 class="mt-4 font-serif text-2xl font-medium">{project.data.title}</h3>
-              <p class="mt-1 text-sm text-muted">{project.data.excerpt}</p>
-            </a>
-          ))
-        }
-      </div>
-      <a href="/projects#interiors" class="mt-10 inline-block text-[12px] uppercase tracking-[0.16em] text-muted">
-        All interior projects
-      </a>
-    </div>
-  </section>
-</Layout>
+<ServicePage
+  title={title}
+  description={description}
+  image="/interior-design.png"
+  eyebrow="Refined interiors · designed for living"
+  headline="Rooms that feel complete, considered, and entirely yours."
+  intro="We compose layouts, materials, lighting, furniture, textures, and finishes into cohesive interiors with enduring character."
+  paragraphs={['Our interior design work covers residential, commercial, and bespoke spaces, always beginning with how the space needs to feel and function.', 'Rather than following temporary trends, we create environments that reflect the architecture, purpose, and individuality of the people who use them.']}
+  cards={[{ icon: 'interior', title: 'Space planning', text: 'Layouts that make movement and living feel natural.' }, { icon: 'material', title: 'Materials', text: 'Tactile finishes selected for character and longevity.' }, { icon: 'concept', title: 'Lighting', text: 'Layered light that supports mood and function.' }, { icon: 'product', title: 'Furniture', text: 'Pieces and details composed as part of the whole.' }]}
+  services="Residential interiors · Commercial interiors · Space planning · Material selection · Lighting design · Custom furniture"
+/>

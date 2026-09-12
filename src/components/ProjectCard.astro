@@ -10,21 +10,52 @@ const { project } = Astro.props;
 const href = `/projects/${project.id}`;
 ---
 
-<a
-  href={href}
-  class="group block"
-  data-typology={project.data.typology}
->
-  <article>
-    <div class="overflow-hidden bg-ink/5">
-      <Img
-        id={project.data.cover}
-        alt={`${project.data.title} — ${project.data.typology}, ${project.data.location}`}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        class="aspect-[4/5] w-full transition duration-700 group-hover:scale-[1.03]"
-        width={1200}
-        height={1500}
-      />
+<article class="group block" data-typology={project.data.typology}>
+  <div class="project-card-link cursor-pointer" data-href={href} role="link" tabindex="0">
+    <div class="project-slideshow relative aspect-[4/3] overflow-hidden bg-ink/5" data-slideshow>
+      {
+        (project.data.gallery.length ? project.data.gallery : [project.data.cover]).map((image, index) => (
+          <Img
+            id={image}
+            alt={`${project.data.title} gallery view ${index + 1}`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            class:list={[
+              'absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700 ease-in-out group-hover:scale-[1.03]',
+              index === 0 && 'opacity-100',
+            ]}
+            width={1200}
+            height={900}
+          />
+        ))
+      }
+      <button
+        type="button"
+        class="absolute left-3 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink/55 text-paper transition hover:bg-ink/80"
+        data-previous
+        aria-label={`Previous ${project.data.title} image`}
+      >
+        <span aria-hidden="true">&larr;</span>
+      </button>
+      <button
+        type="button"
+        class="absolute right-3 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink/55 text-paper transition hover:bg-ink/80"
+        data-next
+        aria-label={`Next ${project.data.title} image`}
+      >
+        <span aria-hidden="true">&rarr;</span>
+      </button>
+      <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5" aria-hidden="true">
+        {
+          (project.data.gallery.length ? project.data.gallery : [project.data.cover]).map((_, index) => (
+            <span
+              class:list={[
+                'slideshow-dot h-1.5 w-5 rounded-full bg-paper/50 transition-colors',
+                index === 0 && 'bg-paper',
+              ]}
+            />
+          ))
+        }
+      </div>
     </div>
     <div class="mt-4 flex items-baseline justify-between gap-3">
       <h2 class="font-serif text-2xl font-medium tracking-tight text-ink md:text-[1.65rem]">
@@ -39,5 +70,47 @@ const href = `/projects/${project.id}`;
       <span class="mx-2 text-brass">·</span>
       {project.data.location}
     </p>
-  </article>
-</a>
+  </div>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-slideshow]').forEach((slideshow) => {
+    const slides = Array.from(slideshow.querySelectorAll<HTMLElement>('img'));
+    const dots = Array.from(slideshow.querySelectorAll<HTMLElement>('.slideshow-dot'));
+    const cardLink = slideshow.closest<HTMLElement>('.project-card-link');
+    const previous = slideshow.querySelector<HTMLButtonElement>('[data-previous]');
+    const next = slideshow.querySelector<HTMLButtonElement>('[data-next]');
+    if (slides.length < 2) return;
+
+    let current = 0;
+    const show = (index: number) => {
+      slides[current].classList.remove('opacity-100');
+      dots[current]?.classList.remove('bg-paper');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('opacity-100');
+      dots[current]?.classList.add('bg-paper');
+    };
+    const advance = () => show(current + 1);
+    const timer = window.setInterval(advance, 3600);
+
+    previous?.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      show(current - 1);
+    });
+    next?.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      show(current + 1);
+    });
+    cardLink?.addEventListener('click', () => {
+      window.location.href = cardLink.dataset.href ?? '#';
+    });
+    cardLink?.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        window.location.href = cardLink.dataset.href ?? '#';
+      }
+    });
+  });
+</script>

@@ -1,43 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import ServicePage from '../../components/ServicePage.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
 const title = pageTitle('Renovation', site.name);
-const description = clipMeta(
-  'Home, apartment, villa, and commercial renovation services in Chennai and Tamil Nadu from BXR Architect.',
-);
+const description = clipMeta('Home, apartment, villa, and commercial renovation services in Chennai from BXR Architect.');
 ---
 
-<Layout title={title} description={description}>
-  <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
-    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">Renovation</h1>
-
-    <div class="mt-10 max-w-3xl space-y-6 text-lg font-light leading-relaxed text-muted">
-      <h2 class="font-serif text-3xl font-medium text-ink md:text-4xl">Existing Spaces. New Possibilities.</h2>
-      <p>
-        Good renovation is not simply about replacing what is old. It is about discovering the potential within an
-        existing space.
-      </p>
-      <p>
-        BXR Architect provides <strong class="font-medium text-ink">
-          home, apartment, villa, and commercial renovation services in Chennai and Tamil Nadu
-        </strong>, transforming existing properties through intelligent planning, contemporary design, and carefully
-        considered interventions.
-      </p>
-      <p>
-        We rethink layouts, improve functionality, introduce natural light where possible, refresh materials and
-        finishes, and redefine the architectural character of the space — while retaining what deserves to remain.
-      </p>
-    </div>
-
-    <div class="mt-12 border-t border-line pt-6">
-      <p class="text-sm font-medium leading-relaxed text-ink">
-        <span class="text-brass">Services:</span> Home Renovation • Apartment Renovation • Villa Renovation •
-        Commercial Renovation • Layout Redesign • Interior Remodeling • Façade Enhancement • Complete Property
-        Transformation
-      </p>
-    </div>
-  </section>
-</Layout>
+<ServicePage
+  title={title}
+  description={description}
+  image="/renovation.png"
+  eyebrow="Existing spaces · new possibilities"
+  headline="Thoughtful transformation for places with a history."
+  intro="We uncover the potential within existing spaces through intelligent planning, contemporary design, and carefully considered interventions."
+  paragraphs={['We rethink layouts, improve functionality, introduce natural light where possible, refresh materials and finishes, and redefine architectural character.', 'The goal is not to replace everything, but to understand what deserves to remain and make the whole space work better.']}
+  cards={[{ icon: 'assess', title: 'Assess', text: 'Understand what works and what can be improved.' }, { icon: 'redesign', title: 'Replan', text: 'Unlock better flow, function, and flexibility.' }, { icon: 'refine', title: 'Refine', text: 'Renew materials and details with restraint.' }, { icon: 'transform', title: 'Transform', text: 'Give the existing space a renewed identity.' }]}
+  services="Home renovation · Apartment renovation · Villa renovation · Commercial renovation · Interior upgrades"
+/>

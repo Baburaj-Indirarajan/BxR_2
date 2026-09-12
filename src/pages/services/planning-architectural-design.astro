@@ -1,46 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import ServicePage from '../../components/ServicePage.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
 const title = pageTitle('Planning & Architectural Design', site.name);
-const description = clipMeta(
-  'Planning and architectural design services in Chennai and Tamil Nadu from BXR Architect.',
-);
+const description = clipMeta('Planning and architectural design services in Chennai and surrounding areas from BXR Architect.');
 ---
 
-<Layout title={title} description={description}>
-  <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
-    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">
-      Planning &amp; Architectural Design
-    </h1>
-
-    <div class="mt-10 max-w-3xl space-y-6 text-lg font-light leading-relaxed text-muted">
-      <h2 class="font-serif text-3xl font-medium text-ink md:text-4xl">
-        Purposeful Architecture. Timeless Design.
-      </h2>
-      <p>
-        At BXR Architect, architecture begins with understanding — the site, the people, the purpose, and the
-        possibilities.
-      </p>
-      <p>
-        As an <strong class="font-medium text-ink">architecture and design studio in Chennai</strong>, we create
-        thoughtfully planned residential, commercial, and contemporary architectural spaces across Chennai and Tamil
-        Nadu. Every project balances functionality, proportion, natural light, ventilation, materiality, and visual
-        simplicity.
-      </p>
-      <p>
-        From initial concepts and space planning to detailed architectural design and visualization, we develop spaces
-        that are refined, functional, and distinctly connected to their context.
-      </p>
-    </div>
-
-    <div class="mt-12 border-t border-line pt-6">
-      <p class="text-sm font-medium leading-relaxed text-ink">
-        <span class="text-brass">Services:</span> Architectural Planning • Residential Design • Commercial
-        Architecture • Space Planning • Floor Plans &amp; Elevations • 3D Visualization • Design Development
-      </p>
-    </div>
-  </section>
-</Layout>
+<ServicePage
+  title={title}
+  description={description}
+  image="/planning-architectural-design.png"
+  eyebrow="Purposeful architecture · timeless design"
+  headline="Spaces shaped around people, place, and possibility."
+  intro="We develop residential and commercial architecture through a considered balance of function, proportion, light, ventilation, and materiality."
+  paragraphs={['Architecture begins with understanding the site, the people, the purpose, and the possibilities.', 'From initial concepts and space planning to detailed design and visualization, we create spaces that are refined, functional, and connected to their context.']}
+  cards={[{ icon: 'architecture', title: 'Context', text: 'Design rooted in site, climate, and everyday life.' }, { icon: 'planning', title: 'Planning', text: 'Clear layouts that support how spaces are used.' }, { icon: 'concept', title: 'Concept', text: 'A strong idea carried through every decision.' }, { icon: 'visualization', title: 'Visualization', text: 'See the design clearly before it is built.' }]}
+  services="Concept design · Space planning · Architectural design · 3D visualization · Working drawings"
+/>
