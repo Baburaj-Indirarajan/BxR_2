@@ -1,11 +1,50 @@
 ---
 import { getCollection } from 'astro:content';
 import Img from '../components/Img.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
 import Layout from '../layouts/Layout.astro';
 import { clipMeta, pageTitle } from '../lib/seo';
 import { processSteps, site } from '../lib/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const services = [
+  {
+    icon: 'approval',
+    title: 'Plan approval',
+    href: '/services/plan-approval',
+    text: 'Clear guidance and documentation to help move your project through the approval process.',
+  },
+  {
+    icon: 'architecture',
+    title: 'Planning & Architectural Design',
+    href: '/services/planning-architectural-design',
+    text: 'Thoughtful plans and practical designs shaped around how you want to live or work.',
+  },
+  {
+    icon: 'interior',
+    title: 'Interior Design',
+    href: '/services/interior-design',
+    text: 'Coordinated layouts, materials, furniture, and lighting for rooms that feel complete.',
+  },
+  {
+    icon: 'construction',
+    title: 'Construction',
+    href: '/services/construction',
+    text: 'Reliable support from drawings to site, keeping the design clear through construction.',
+  },
+  {
+    icon: 'renovation',
+    title: 'Renovation',
+    href: '/services/renovation',
+    text: 'Sensitive updates that improve existing spaces while respecting what already works.',
+  },
+  {
+    icon: 'product',
+    title: 'Product Design',
+    href: '/services/product-design',
+    text: 'Considered objects and details that bring the same care and clarity to everyday use.',
+  },
+] as const;
 const title = pageTitle('', site.name, site.tagline);
 const description = clipMeta(site.description);
 ---
@@ -49,19 +88,48 @@ const description = clipMeta(site.description);
 
   <section class="page-wrap grid gap-10 py-16 md:grid-cols-[1.1fr_0.9fr] md:gap-20 md:py-28">
     <div>
-      <p class="text-[11px] uppercase tracking-[0.22em] text-brass">The studio</p>
-      <h2 class="mt-3 font-serif text-4xl font-medium md:text-5xl">Space, soul, story</h2>
+      <p class="text-[11px] uppercase tracking-[0.22em] text-brass">About Us</p>
+      <h2 class="mt-3 font-serif text-4xl font-medium md:text-5xl">Architecture shaped by experience</h2>
     </div>
     <div class="space-y-5 text-[17px] font-light leading-relaxed text-muted">
       <p>
-        <strong class="font-medium text-ink">Space</strong> is the plan and the light — how a plot becomes rooms that breathe.
+        BXR Architect is a design practice shaped by the belief that architecture is more than the making of
+        buildings — it is the making of experiences.
       </p>
       <p>
-        <strong class="font-medium text-ink">Soul</strong> is how the place feels at 4 p.m., with the heat and the noise outside.
+        We work across architecture, interiors, and the built environment, creating spaces that respond to
+        context, purpose, and the people who inhabit them.
       </p>
       <p>
-        <strong class="font-medium text-ink">Story</strong> is why this building exists: a family, a cafe, a lobby, a way of working.
+        <a href="/about" class="text-ink underline decoration-brass underline-offset-4 hover:text-brass">
+          Discover the studio
+        </a>
       </p>
+    </div>
+  </section>
+
+  <section class="page-wrap py-16 md:py-24">
+    <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+      <div>
+        <p class="text-[11px] uppercase tracking-[0.22em] text-brass">What we do</p>
+        <h2 class="mt-2 font-serif text-4xl font-medium md:text-5xl">Services</h2>
+      </div>
+      <a href="/services" class="text-[12px] uppercase tracking-[0.16em] text-muted hover:text-ink">
+        Explore all services
+      </a>
+    </div>
+    <div class="mt-10 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => (
+          <a href={service.href} class="group bg-paper p-7 transition hover:bg-ink/[0.02] md:p-9">
+            <span class="inline-flex text-brass">
+              <ServiceIcon name={service.icon} size={28} />
+            </span>
+            <h3 class="mt-4 font-serif text-2xl font-medium group-hover:text-brass">{service.title}</h3>
+            <p class="mt-3 text-sm font-light leading-relaxed text-muted">{service.text}</p>
+          </a>
+        ))
+      }
     </div>
   </section>
 
@@ -107,34 +175,6 @@ const description = clipMeta(site.description);
     </div>
   </section>
 
-  <section class="page-wrap py-16 md:py-24">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">What we do</p>
-    <h2 class="mt-2 font-serif text-4xl font-medium md:text-5xl">Services</h2>
-    <div class="mt-12 grid gap-px bg-line md:grid-cols-3">
-      <a href="/services/architecture" class="bg-paper p-8 transition hover:bg-ink/[0.02] md:p-10">
-        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">01</p>
-        <h3 class="mt-4 font-serif text-3xl font-medium">Architecture</h3>
-        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
-          Houses, extensions, and commercial shells. Concept to working drawings and site review.
-        </p>
-      </a>
-      <a href="/services/interior-design" class="bg-paper p-8 transition hover:bg-ink/[0.02] md:p-10">
-        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">02</p>
-        <h3 class="mt-4 font-serif text-3xl font-medium">Interior design</h3>
-        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
-          Apartments, villas, workplaces, and hospitality. Layout, materials, furniture, lighting.
-        </p>
-      </a>
-      <a href="/services" class="bg-paper p-8 transition hover:bg-ink/[0.02] md:p-10">
-        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">03</p>
-        <h3 class="mt-4 font-serif text-3xl font-medium">Consultancy</h3>
-        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
-          Spatial briefs, feasibility, and a second pair of eyes on a plan already in motion.
-        </p>
-      </a>
-    </div>
-  </section>
-
   <section class="bg-ink text-paper">
     <div class="page-wrap py-16 md:py-24">
       <p class="text-[11px] uppercase tracking-[0.22em] text-brass-light">How we work</p>
@@ -143,7 +183,9 @@ const description = clipMeta(site.description);
         {
           processSteps.map((step) => (
             <li>
-              <p class="text-[11px] uppercase tracking-[0.2em] text-brass-light">{step.n}</p>
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brass-light/40 text-brass-light">
+                <ServiceIcon name={step.icon} size={22} />
+              </span>
               <h3 class="mt-3 font-serif text-2xl font-medium">{step.title}</h3>
               <p class="mt-2 text-sm font-light leading-relaxed text-paper/70">{step.text}</p>
             </li>

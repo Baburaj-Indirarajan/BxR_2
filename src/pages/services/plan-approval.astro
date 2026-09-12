@@ -1,44 +1,29 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import ServicePage from '../../components/ServicePage.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
 const title = pageTitle('Plan Approval', site.name);
-const description = clipMeta(
-  'Professional building plan approval services in Chennai and across Tamil Nadu from BXR Architect.',
-);
+const description = clipMeta('Professional building plan approval services in Chennai and across Tamil Nadu from BXR Architect.');
 ---
 
-<Layout title={title} description={description}>
-  <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
-    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">Plan approval</h1>
-
-    <div class="mt-10 max-w-3xl space-y-6 text-lg font-light leading-relaxed text-muted">
-      <h2 class="font-serif text-3xl font-medium text-ink md:text-4xl">
-        Clear Process. Compliant Planning. Confident Beginnings.
-      </h2>
-      <p>
-        BXR Architect provides professional <strong class="font-medium text-ink">
-          building plan approval services in Chennai and across Tamil Nadu
-        </strong>, helping clients navigate the documentation and approval process with clarity and confidence.
-      </p>
-      <p>
-        From preparing architectural drawings to coordinating required documentation and revisions, we ensure that
-        every submission is developed with careful attention to applicable planning regulations and building
-        requirements.
-      </p>
-      <p>
-        Our structured approach minimizes complexity, reduces unnecessary delays, and creates a clear path from
-        proposal to approval.
-      </p>
-    </div>
-
-    <div class="mt-12 border-t border-line pt-6">
-      <p class="text-sm font-medium leading-relaxed text-ink">
-        <span class="text-brass">Services:</span> Building Plan Approval • Approval Drawings • Planning
-        Documentation • Building Regulation Compliance • Drawing Revisions • Approval Coordination
-      </p>
-    </div>
-  </section>
-</Layout>
+<ServicePage
+  title={title}
+  description={description}
+  image="/plan-approval.png"
+  eyebrow="Clear approvals, smarter starts"
+  headline="Clear Process. Compliant Planning. Confident Beginnings."
+  intro="We help clients move from concept to compliance with a streamlined approval process, accurate documentation, and clear coordination."
+  paragraphs={[
+    'BXR Architect provides professional building plan approval services in Chennai and across Tamil Nadu, helping clients navigate planning requirements with clarity and confidence.',
+    'From architectural drawings to documentation and revisions, every submission is developed with careful attention to applicable planning regulations and building requirements.',
+    'Our structured approach minimizes complexity and unnecessary delays, creating a clear path from proposal to approval.',
+  ]}
+  cards={[
+    { icon: 'planning', title: 'Drawings', text: 'Accurate, review-ready architectural plans tailored to local approval requirements.' },
+    { icon: 'quality', title: 'Compliance', text: 'Guidance aligned with planning rules, setbacks, coverage, and building regulations.' },
+    { icon: 'execution', title: 'Coordination', text: 'Documentation, revisions, and updates managed with clarity and control.' },
+    { icon: 'approval', title: 'Submission', text: 'A clean, well-structured package that keeps your project moving.' },
+  ]}
+  services="Building Plan Approval • Approval Drawings • Planning Documentation • Building Regulation Compliance • Drawing Revisions • Approval Coordination"
+/>

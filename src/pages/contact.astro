@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { clipMeta, pageTitle } from '../lib/seo';
-import { site } from '../lib/site';
+import { serviceAreas, site } from '../lib/site';
 
 const sent = Astro.url.searchParams.get('sent') === '1';
 const thanks = new URL('/contact?sent=1', Astro.url.origin).href;
@@ -13,14 +13,21 @@ const description = clipMeta(
 
 <Layout title={title} description={description}>
   <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Contact</p>
-    <h1 class="mt-3 font-serif text-4xl font-medium md:text-6xl">Start a project</h1>
-    <p class="mt-4 max-w-xl text-lg font-light leading-relaxed text-muted">
-      Send a brief. Plot, programme, timeline. We reply with next steps.
-    </p>
-
-    <div class="mt-12 grid gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+    <div class="grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
       <div>
+        <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Start a conversation</p>
+        <h1 class="mt-3 max-w-3xl font-serif text-5xl font-medium tracking-tight md:text-7xl">
+          Let’s shape a place with purpose.
+        </h1>
+      </div>
+      <p class="max-w-md text-lg font-light leading-relaxed text-muted lg:pb-2">
+        Tell us what you are imagining. From the first brief to the final detail, we bring clarity, care, and
+        character to every project.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+      <div class="border border-line bg-white/60 p-6 md:p-10">
         {
           sent ? (
             <p class="border border-line bg-ink/[0.03] px-6 py-8 font-light text-ink" role="status">
@@ -68,18 +75,6 @@ const description = clipMeta(
                 />
               </label>
               <label class="block">
-                <span class="text-[11px] uppercase tracking-[0.16em] text-muted">Project type</span>
-                <select
-                  name="project_type"
-                  class="mt-2 h-12 w-full border border-line bg-paper px-3 text-ink outline-none focus:border-ink"
-                >
-                  <option>Architecture</option>
-                  <option>Interior design</option>
-                  <option>Both</option>
-                  <option>Consultancy</option>
-                </select>
-              </label>
-              <label class="block">
                 <span class="text-[11px] uppercase tracking-[0.16em] text-muted">Message</span>
                 <textarea
                   required
@@ -99,23 +94,45 @@ const description = clipMeta(
         }
       </div>
 
-      <aside class="lg:pl-6">
-        <h2 class="text-[11px] uppercase tracking-[0.2em] text-brass">Studio</h2>
-        <ul class="mt-5 space-y-3 text-base font-light">
+      <aside class="flex flex-col justify-between bg-ink p-7 text-paper md:p-10">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-brass-light">BXR Architect</p>
+          <h2 class="mt-4 font-serif text-3xl font-medium md:text-4xl">Good spaces begin with a good brief.</h2>
+          <p class="mt-5 max-w-sm text-sm font-light leading-relaxed text-paper/70">
+            Share your site, programme, timeline, or simply the feeling you want to create. We will get back to
+            you with a clear next step.
+          </p>
+        </div>
+        <ul class="mt-12 space-y-4 border-t border-paper/20 pt-6 text-sm font-light">
           <li>
-            <a href={`mailto:${site.email}`} class="hover:text-brass">{site.email}</a>
+            <span class="block text-[10px] uppercase tracking-[0.18em] text-brass-light">Email</span>
+            <a href={`mailto:${site.email}`} class="mt-1 inline-block hover:text-brass-light">{site.email}</a>
           </li>
           <li>
-            <a href={`tel:${site.telephone}`} class="hover:text-brass">{site.phoneDisplay}</a>
+            <span class="block text-[10px] uppercase tracking-[0.18em] text-brass-light">Call</span>
+            <a href={`tel:${site.telephone}`} class="mt-1 inline-block hover:text-brass-light">{site.phoneDisplay}</a>
           </li>
           <li>
-            <a href={site.whatsappUrl} class="hover:text-brass">WhatsApp</a>
+            <span class="block text-[10px] uppercase tracking-[0.18em] text-brass-light">Message</span>
+            <a href={site.whatsappUrl} class="mt-1 inline-block hover:text-brass-light">WhatsApp</a>
           </li>
         </ul>
-        <p class="mt-8 max-w-sm text-sm font-light leading-relaxed text-muted">
-          {site.name}. {site.tagline}. First FormSubmit delivery asks you to confirm the inbox.
-        </p>
       </aside>
+    </div>
+  </section>
+  <section class="border-t border-line bg-ink/[0.03] py-12 md:py-16">
+    <div class="page-wrap">
+      <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Where we work</p>
+      <h2 class="mt-3 font-serif text-3xl font-medium md:text-4xl">Architecture and interiors across Chennai</h2>
+      <p class="mt-3 max-w-2xl text-sm font-light leading-relaxed text-muted">
+        BXR Architect works with homeowners, businesses, and developers across Chennai and its surrounding
+        neighbourhoods.
+      </p>
+      <div class="mt-7 flex flex-wrap gap-2">
+        {serviceAreas.map((area) => (
+          <span class="border border-line bg-paper px-3 py-1.5 text-xs text-muted">{area}</span>
+        ))}
+      </div>
     </div>
   </section>
 </Layout>

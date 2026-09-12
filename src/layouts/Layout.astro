@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import MobileCta from '../components/MobileCta.astro';
 import Seo from '../components/Seo.astro';
-import { site } from '../lib/site';
+import { serviceAreas, site } from '../lib/site';
 
 interface Props {
   title: string;
@@ -24,8 +24,9 @@ const architectLd = {
   email: site.email,
   telephone: site.telephone,
   url: Astro.site?.href ?? site.url,
-  areaServed: 'IN',
-  knowsAbout: ['Architecture', 'Interior design'],
+  areaServed: serviceAreas.map((name) => ({ '@type': 'Place', name: `${name}, Chennai` })),
+  serviceType: ['Architecture', 'Interior design', 'Plan approval', 'Construction', 'Renovation', 'Product design'],
+  knowsAbout: ['Architecture', 'Interior design', 'Residential design', 'Commercial design', 'Built environment'],
 };
 
 const jsonLdBlocks = jsonLd

@@ -1,28 +1,54 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
 import { clipMeta, pageTitle } from '../lib/seo';
 import { processSteps, site } from '../lib/site';
 
 const title = pageTitle('About the Studio', site.name);
 const description = clipMeta(
-  'Meet BXR Architect — a team for architecture and interiors. Space, soul, story. From brief to site.',
+  'BXR Architect creates thoughtful architecture and interiors shaped by context, material, light, and human experience.',
 );
 ---
 
 <Layout title={title} description={description} image="photo-1507003211169-0a1dd7228f2d">
   <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Studio</p>
-    <h1 class="mt-3 font-serif text-4xl font-medium md:text-6xl">The studio</h1>
+    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">About BXR Architect</p>
+    <h1 class="mt-3 max-w-4xl font-serif text-4xl font-medium md:text-6xl">
+      Architecture shaped by experience
+    </h1>
     <div class="mt-8 grid gap-10 md:grid-cols-2 md:gap-16">
       <p class="text-lg font-light leading-relaxed text-ink/90">
-        BXR Architect is a team working at the meeting of architecture and interiors. We start with how a
-        place is used, then draw the envelope and the room as one.
+        BXR Architect is a design practice shaped by the belief that architecture is more than the making of
+        buildings — it is the making of experiences.
       </p>
       <p class="font-light leading-relaxed text-muted">
-        The tagline is the method. Space is the plan and the light. Soul is the feel of the room when it is
-        occupied. Story is the reason the building exists — a family, a cafe, a place of work. Placeholder
-        portraits below; names and photographs will be replaced with the studio team.
+        We work across architecture, interiors, and the built environment, creating spaces that respond to
+        their context, purpose, and the people who inhabit them.
       </p>
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-ink py-14 text-paper md:py-20">
+    <div class="page-wrap grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
+      <div>
+        <p class="text-[11px] uppercase tracking-[0.22em] text-brass-light">Our approach</p>
+        <h2 class="mt-3 font-serif text-3xl font-medium md:text-4xl">Intentional from the first line</h2>
+      </div>
+      <div class="space-y-5 text-base font-light leading-relaxed text-paper/75">
+        <p>
+          Our work is driven by a dialogue between space, material, light, and human experience, where every
+          decision is intentional and every detail contributes to the whole.
+        </p>
+        <p>
+          From a residence to a commercial environment, we approach each project as an opportunity to create
+          something with a distinct identity — contemporary in expression, grounded in context, and enduring
+          in character.
+        </p>
+        <p>
+          We design not simply for how a space looks today, but for how it will be lived, remembered, and
+          experienced over time.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -33,13 +59,16 @@ const description = clipMeta(
         {
           processSteps.map((step) => (
             <li>
-              <p class="text-[11px] uppercase tracking-[0.2em] text-brass">{step.n}</p>
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brass/40 text-brass">
+                <ServiceIcon name={step.icon} size={22} />
+              </span>
               <h3 class="mt-3 font-serif text-2xl font-medium">{step.title}</h3>
               <p class="mt-2 text-sm font-light leading-relaxed text-muted">{step.text}</p>
             </li>
           ))
         }
       </ol>
+      <p class="mt-12 font-serif text-2xl italic text-brass md:text-3xl">Space · Soul · Stories</p>
     </div>
   </section>
 

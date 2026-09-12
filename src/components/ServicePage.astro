@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceIcon from './ServiceIcon.astro';
+
+interface Card {
+  icon: string;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  eyebrow: string;
+  headline: string;
+  intro: string;
+  paragraphs: string[];
+  cards: Card[];
+  services: string;
+}
+
+const { title, description, image, eyebrow, headline, intro, paragraphs, cards, services } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <section class="page-wrap py-14 md:py-20">
+    <a
+      href="/services"
+      class="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-ink"
+    >
+      <span aria-hidden="true">&larr;</span>
+      Back to services
+    </a>
+    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
+    <h1 class="mt-3 max-w-4xl font-serif text-4xl font-medium md:text-6xl">{title}</h1>
+
+    <div
+      class="relative mt-10 overflow-hidden border border-line bg-ink"
+      style={`background-image: url('${image}'); background-size: cover; background-position: center;`}
+    >
+      <div class="bg-ink/75 px-6 py-10 md:px-12 md:py-16">
+        <div class="max-w-4xl text-paper">
+          <p class="text-[11px] uppercase tracking-[0.24em] text-brass-light">{eyebrow}</p>
+          <h2 class="mt-4 max-w-3xl font-serif text-3xl font-medium leading-tight md:text-5xl">{headline}</h2>
+          <p class="mt-6 max-w-2xl text-base font-light leading-relaxed text-paper/85 md:text-lg">{intro}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      {
+        cards.map((card, index) => (
+          <article class="border border-line bg-paper p-5">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-brass">
+              <ServiceIcon name={card.icon} size={25} />
+            </p>
+            <h3 class="mt-3 font-serif text-2xl font-medium">{card.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{card.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-14 grid gap-10 border-t border-line pt-10 md:grid-cols-[1.15fr_0.85fr] md:gap-16">
+      <div class="space-y-5 text-base font-light leading-relaxed text-muted md:text-lg">
+        {
+          paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))
+        }
+      </div>
+      <aside class="self-start border border-line bg-paper p-6 md:p-8">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">What’s included</p>
+        <p class="mt-4 text-sm font-medium leading-relaxed text-ink">{services}</p>
+      </aside>
+    </div>
+
+    <div class="mt-14 flex flex-col items-start justify-between gap-5 border-t border-line pt-8 sm:flex-row sm:items-center">
+      <div>
+        <p class="font-serif text-3xl font-medium">Have a project in mind?</p>
+        <p class="mt-2 text-sm text-muted">Let’s shape the next step together.</p>
+      </div>
+      <a
+        href="/contact"
+        class="inline-flex h-12 items-center justify-center bg-ink px-7 text-[12px] uppercase tracking-[0.18em] text-paper"
+      >
+        Start a brief
+      </a>
+    </div>
+  </section>
+</Layout>

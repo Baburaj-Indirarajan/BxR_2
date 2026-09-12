@@ -91,17 +91,50 @@ const workLd = {
       </aside>
     </div>
 
-    <div class="page-wrap grid gap-4 pb-16 sm:grid-cols-2 md:pb-24">
-      {
-        project.data.gallery.map((id, i) => (
-          <Img
-            id={id}
-            alt={`${project.data.title} gallery ${i + 1} — BXR Architect`}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="aspect-[4/5] w-full sm:aspect-[5/4]"
-          />
-        ))
-      }
+    <div class="page-wrap pb-16 md:pb-24">
+      <div class="relative aspect-[4/3] overflow-hidden bg-ink/5" data-project-slideshow>
+        {
+          project.data.gallery.map((id, i) => (
+            <Img
+              id={id}
+              alt={`${project.data.title} gallery ${i + 1} — BXR Architect`}
+              sizes="100vw"
+              class={`absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700 ease-in-out ${i === 0 ? 'opacity-100' : ''}`}
+              width={1920}
+              height={1440}
+              priority={i === 0}
+            />
+          ))
+        }
+        <button
+          type="button"
+          class="absolute left-4 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 text-paper transition hover:bg-ink/85"
+          data-previous
+          aria-label={`Previous ${project.data.title} image`}
+        >
+          <span aria-hidden="true">&larr;</span>
+        </button>
+        <button
+          type="button"
+          class="absolute right-4 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 text-paper transition hover:bg-ink/85"
+          data-next
+          aria-label={`Next ${project.data.title} image`}
+        >
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+        <div class="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5" aria-hidden="true">
+          {
+            project.data.gallery.map((_, i) => (
+              <span
+                class:list={[
+                  'project-slideshow-dot h-1.5 w-7 rounded-full bg-paper/50 transition-colors',
+                  i === 0 && 'bg-paper',
+                ]}
+              />
+            ))
+          }
+        </div>
+      </div>
     </div>
 
     <nav class="border-t border-line" aria-label="More projects">
@@ -118,3 +151,26 @@ const workLd = {
     </nav>
   </article>
 </Layout>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-project-slideshow]').forEach((slideshow) => {
+    const slides = Array.from(slideshow.querySelectorAll<HTMLElement>('img'));
+    const dots = Array.from(slideshow.querySelectorAll<HTMLElement>('.project-slideshow-dot'));
+    const previous = slideshow.querySelector<HTMLButtonElement>('[data-previous]');
+    const next = slideshow.querySelector<HTMLButtonElement>('[data-next]');
+    if (slides.length < 2) return;
+
+    let current = 0;
+    const show = (index: number) => {
+      slides[current].classList.remove('opacity-100');
+      dots[current]?.classList.remove('bg-paper');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('opacity-100');
+      dots[current]?.classList.add('bg-paper');
+    };
+
+    window.setInterval(() => show(current + 1), 3600);
+    previous?.addEventListener('click', () => show(current - 1));
+    next?.addEventListener('click', () => show(current + 1));
+  });
+</script>

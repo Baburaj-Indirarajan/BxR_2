@@ -14,6 +14,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -22,6 +23,21 @@ body {
     linear-gradient(180deg, #fffaf5 0%, #ffffff 100%);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
 }
 
 ::selection {

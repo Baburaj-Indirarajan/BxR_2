@@ -1,44 +1,29 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import ServicePage from '../../components/ServicePage.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
 const title = pageTitle('Construction', site.name);
-const description = clipMeta(
-  'Integrated construction services in Chennai and Tamil Nadu from BXR Architect.',
-);
+const description = clipMeta('Integrated construction services in Chennai and Tamil Nadu from BXR Architect.');
 ---
 
-<Layout title={title} description={description}>
-  <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
-    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">Construction</h1>
-
-    <div class="mt-10 max-w-3xl space-y-6 text-lg font-light leading-relaxed text-muted">
-      <h2 class="font-serif text-3xl font-medium text-ink md:text-4xl">
-        Designed with Vision. Built with Precision.
-      </h2>
-      <p>
-        BXR Architect provides integrated <strong class="font-medium text-ink">
-          construction services in Chennai and across Tamil Nadu
-        </strong>, bringing architectural ideas to life through careful planning, coordination, and execution.
-      </p>
-      <p>
-        From structural development to architectural finishes, every stage is approached with attention to quality,
-        materials, workmanship, and design intent.
-      </p>
-      <p>
-        By connecting architecture and construction within a coordinated process, we create greater consistency
-        between what is envisioned on paper and what is ultimately built.
-      </p>
-    </div>
-
-    <div class="mt-12 border-t border-line pt-6">
-      <p class="text-sm font-medium leading-relaxed text-ink">
-        <span class="text-brass">Services:</span> Residential Construction • Commercial Construction • Turnkey
-        Execution • Site Coordination • Material Management • Quality Monitoring • Architectural Supervision •
-        Finishing &amp; Detailing
-      </p>
-    </div>
-  </section>
-</Layout>
+<ServicePage
+  title={title}
+  description={description}
+  image="/construction.png"
+  eyebrow="From drawings to delivery"
+  headline="Designed with Vision. Built with Precision."
+  intro="We transform design intent into robust, carefully executed reality through disciplined coordination and thoughtful site delivery."
+  paragraphs={[
+    'BXR Architect delivers integrated construction services in Chennai and across Tamil Nadu, connecting architecture and execution within one coordinated process.',
+    'We coordinate structure, finishes, site activity, and workmanship with a focus on design goals, time, quality, and long-term performance.',
+    'From site coordination to final detailing, our approach bridges the gap between architecture on paper and the experience of the finished space.',
+  ]}
+  cards={[
+    { icon: 'site', title: 'Site', text: 'Structured oversight and coordination that keep execution aligned with the design.' },
+    { icon: 'quality', title: 'Quality', text: 'Materials, finishes, and workmanship reviewed for consistency and durability.' },
+    { icon: 'execution', title: 'Execution', text: 'A clear construction flow from detailing to handover, with better control.' },
+    { icon: 'finish', title: 'Finish', text: 'Architectural refinement at every stage so the built result reflects the vision.' },
+  ]}
+  services="Residential Construction • Commercial Construction • Turnkey Execution • Site Coordination • Material Management • Quality Monitoring • Architectural Supervision • Finishing & Detailing"
+/>
