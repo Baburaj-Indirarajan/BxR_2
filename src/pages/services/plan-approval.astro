@@ -1,44 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import ServicePage from '../../components/ServicePage.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
 const title = pageTitle('Plan Approval', site.name);
-const description = clipMeta(
-  'Professional building plan approval services in Chennai and across Tamil Nadu from BXR Architect.',
-);
+const description = clipMeta('Professional building plan approval services in Chennai and surrounding areas from BXR Architect.');
 ---
 
-<Layout title={title} description={description}>
-  <section class="page-wrap py-14 md:py-20">
-    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
-    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">Plan approval</h1>
-
-    <div class="mt-10 max-w-3xl space-y-6 text-lg font-light leading-relaxed text-muted">
-      <h2 class="font-serif text-3xl font-medium text-ink md:text-4xl">
-        Clear Process. Compliant Planning. Confident Beginnings.
-      </h2>
-      <p>
-        BXR Architect provides professional <strong class="font-medium text-ink">
-          building plan approval services in Chennai and across Tamil Nadu
-        </strong>, helping clients navigate the documentation and approval process with clarity and confidence.
-      </p>
-      <p>
-        From preparing architectural drawings to coordinating required documentation and revisions, we ensure that
-        every submission is developed with careful attention to applicable planning regulations and building
-        requirements.
-      </p>
-      <p>
-        Our structured approach minimizes complexity, reduces unnecessary delays, and creates a clear path from
-        proposal to approval.
-      </p>
-    </div>
-
-    <div class="mt-12 border-t border-line pt-6">
-      <p class="text-sm font-medium leading-relaxed text-ink">
-        <span class="text-brass">Services:</span> Building Plan Approval • Approval Drawings • Planning
-        Documentation • Building Regulation Compliance • Drawing Revisions • Approval Coordination
-      </p>
-    </div>
-  </section>
-</Layout>
+<ServicePage
+  title={title}
+  description={description}
+  image="/plan-approval.png"
+  eyebrow="Clear process · compliant planning"
+  headline="Confident beginnings for every project."
+  intro="We prepare clear drawings and documentation that help clients move through the approval process with confidence."
+  paragraphs={['From architectural drawings to required documentation and revisions, every submission is prepared with careful attention to applicable planning requirements.', 'Our structured approach reduces complexity, avoids unnecessary delays, and creates a clear path from proposal to approval.']}
+  cards={[{ icon: 'approval', title: 'Documentation', text: 'Clear, coordinated drawings and submission material.' }, { icon: 'planning', title: 'Regulations', text: 'Design decisions aligned with planning requirements.' }, { icon: 'assess', title: 'Review', text: 'Careful checks before documentation is submitted.' }, { icon: 'quality', title: 'Confidence', text: 'A more predictable route from idea to approval.' }]}
+  services="Building plan approval · Approval drawings · Planning documentation · Regulation compliance · Drawing revisions"
+/>
