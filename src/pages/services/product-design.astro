@@ -1,38 +1,9 @@
 ---
-<<<<<<< HEAD
-import ServicePage from '../../components/ServicePage.astro';
-=======
 import Layout from '../../layouts/Layout.astro';
->>>>>>> 284d9b9088606134766554c0524792f9eb50f8d8
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
 const title = pageTitle('Product Design', site.name);
-<<<<<<< HEAD
-const description = clipMeta('Bespoke product and furniture design in Chennai from BXR Architect.');
----
-
-<ServicePage
-  title={title}
-  description={description}
-  image="/product-design.png"
-  eyebrow="Designing the everyday object"
-  headline="Objects with Purpose. Details with Character."
-  intro="Custom pieces that feel refined, useful, and deeply connected to the way a space is lived in."
-  paragraphs={[
-    'Architecture extends beyond walls and spaces. It lives in the objects, furniture, materials, and details we interact with every day.',
-    'BXR Architect offers bespoke product and furniture design in Chennai, creating custom pieces that complement architectural and interior environments.',
-    'From furniture and built-in elements to architectural features and fixtures, every product balances proportion, function, materiality, craftsmanship, and character.',
-  ]}
-  cards={[
-    { icon: 'concept', title: 'Concept', text: 'Material, proportion, and function explored to define the object’s role.' },
-    { icon: 'form', title: 'Form', text: 'Refined silhouettes and ergonomic thinking shaped to feel intuitive.' },
-    { icon: 'material', title: 'Material', text: 'Surfaces and finishes selected for durability, mood, and clarity.' },
-    { icon: 'realization', title: 'Realization', text: 'A crafted outcome that feels precise and naturally at home in its setting.' },
-  ]}
-  services="Bespoke Furniture • Custom Fixtures • Architectural Elements • Product Development • Material Exploration • Custom Design Solutions"
-/>
-=======
 const description = clipMeta(
   'Bespoke product and furniture design in Chennai from BXR Architect.',
 );
@@ -71,4 +42,3 @@ const description = clipMeta(
     </div>
   </section>
 </Layout>
->>>>>>> 284d9b9088606134766554c0524792f9eb50f8d8
