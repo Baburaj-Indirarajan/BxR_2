@@ -11,32 +11,32 @@ const description = clipMeta(
 
 const services = [
   {
-    icon: 'approval',
+    number: '01',
     title: 'Plan approval',
     text: 'Clear guidance and documentation to help move your project through the approval process.',
   },
   {
-    icon: 'architecture',
+    number: '02',
     title: 'Planning & Architectural Design',
     text: 'Thoughtful plans and practical designs shaped around how you want to live or work.',
   },
   {
-    icon: 'interior',
+    number: '03',
     title: 'Interior design',
     text: 'Coordinated layouts, materials, furniture, and lighting for rooms that feel complete.',
   },
   {
-    icon: 'construction',
+    number: '04',
     title: 'Construction',
     text: 'Reliable support from drawings to site, keeping the design clear through construction.',
   },
   {
-    icon: 'renovation',
+    number: '05',
     title: 'Renovation',
     text: 'Sensitive updates that improve existing spaces while respecting what already works.',
   },
   {
-    icon: 'product',
+    number: '06',
     title: 'Product design',
     text: 'Considered objects and details that bring the same care and clarity to everyday use.',
   },
@@ -74,7 +74,7 @@ const services = [
             }
             class="group bg-paper p-8 md:p-10"
           >
-            <span class="inline-flex text-brass"><ServiceIcon name={service.icon} size={28} /></span>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-brass">{service.number}</p>
             <h2 class="mt-4 font-serif text-3xl font-medium group-hover:text-brass">{service.title}</h2>
             <p class="mt-3 text-sm font-light leading-relaxed text-muted">{service.text}</p>
           </a>

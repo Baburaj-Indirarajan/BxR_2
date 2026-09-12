@@ -1,29 +1,46 @@
 ---
-import ServicePage from '../../components/ServicePage.astro';
+import Layout from '../../layouts/Layout.astro';
 import { clipMeta, pageTitle } from '../../lib/seo';
 import { site } from '../../lib/site';
 
 const title = pageTitle('Planning & Architectural Design', site.name);
-const description = clipMeta('Planning and architectural design services in Chennai and Tamil Nadu from BXR Architect.');
+const description = clipMeta(
+  'Planning and architectural design services in Chennai and Tamil Nadu from BXR Architect.',
+);
 ---
 
-<ServicePage
-  title={title}
-  description={description}
-  image="/planning-architectural-design.png"
-  eyebrow="Context-led design"
-  headline="Purposeful Architecture. Timeless Design."
-  intro="We turn complex requirements into refined, buildable spaces that feel distinctive, efficient, and connected to their context."
-  paragraphs={[
-    'Architecture begins with understanding — the site, the people, the purpose, and the possibilities.',
-    'As an architecture and design studio in Chennai, we shape residential, commercial, and contemporary environments across Chennai and Tamil Nadu with a focus on function, proportion, light, ventilation, materiality, and clarity.',
-    'From initial concepts and space planning to detailed design and visualization, we create architecture that is purposeful from the first sketch to the final detail.',
-  ]}
-  cards={[
-    { icon: 'concept', title: 'Concept', text: 'Site understanding, user needs, and design direction shaped into a clear idea.' },
-    { icon: 'planning', title: 'Planning', text: 'Efficient layouts, natural light, ventilation, and circulation mapped for everyday life.' },
-    { icon: 'design', title: 'Design', text: 'Detailed architectural design balancing performance, aesthetics, and value.' },
-    { icon: 'visualization', title: 'Visualization', text: 'Clear visual communication to refine decisions before construction begins.' },
-  ]}
-  services="Architectural Planning • Residential Design • Commercial Architecture • Space Planning • Floor Plans & Elevations • 3D Visualization • Design Development"
-/>
+<Layout title={title} description={description}>
+  <section class="page-wrap py-14 md:py-20">
+    <p class="text-[11px] uppercase tracking-[0.22em] text-brass">Services</p>
+    <h1 class="mt-3 max-w-3xl font-serif text-4xl font-medium md:text-6xl">
+      Planning &amp; Architectural Design
+    </h1>
+
+    <div class="mt-10 max-w-3xl space-y-6 text-lg font-light leading-relaxed text-muted">
+      <h2 class="font-serif text-3xl font-medium text-ink md:text-4xl">
+        Purposeful Architecture. Timeless Design.
+      </h2>
+      <p>
+        At BXR Architect, architecture begins with understanding — the site, the people, the purpose, and the
+        possibilities.
+      </p>
+      <p>
+        As an <strong class="font-medium text-ink">architecture and design studio in Chennai</strong>, we create
+        thoughtfully planned residential, commercial, and contemporary architectural spaces across Chennai and Tamil
+        Nadu. Every project balances functionality, proportion, natural light, ventilation, materiality, and visual
+        simplicity.
+      </p>
+      <p>
+        From initial concepts and space planning to detailed architectural design and visualization, we develop spaces
+        that are refined, functional, and distinctly connected to their context.
+      </p>
+    </div>
+
+    <div class="mt-12 border-t border-line pt-6">
+      <p class="text-sm font-medium leading-relaxed text-ink">
+        <span class="text-brass">Services:</span> Architectural Planning • Residential Design • Commercial
+        Architecture • Space Planning • Floor Plans &amp; Elevations • 3D Visualization • Design Development
+      </p>
+    </div>
+  </section>
+</Layout>
