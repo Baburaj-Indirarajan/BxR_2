@@ -7,6 +7,39 @@ const title = pageTitle('Architecture and Interior Design', site.name);
 const description = clipMeta(
   'Architecture, interior design, and spatial consultancy from BXR Architect. From first sketch to site review.',
 );
+
+const services = [
+  {
+    number: '01',
+    title: 'Plan approval',
+    text: 'Clear guidance and documentation to help move your project through the approval process.',
+  },
+  {
+    number: '02',
+    title: 'Planning & Architectural Design',
+    text: 'Thoughtful plans and practical designs shaped around how you want to live or work.',
+  },
+  {
+    number: '03',
+    title: 'Interior design',
+    text: 'Coordinated layouts, materials, furniture, and lighting for rooms that feel complete.',
+  },
+  {
+    number: '04',
+    title: 'Construction',
+    text: 'Reliable support from drawings to site, keeping the design clear through construction.',
+  },
+  {
+    number: '05',
+    title: 'Renovation',
+    text: 'Sensitive updates that improve existing spaces while respecting what already works.',
+  },
+  {
+    number: '06',
+    title: 'Product design',
+    text: 'Considered objects and details that bring the same care and clarity to everyday use.',
+  },
+] as const;
 ---
 
 <Layout title={title} description={description}>
@@ -19,21 +52,33 @@ const description = clipMeta(
       From first sketch to site. One team, one language of space — the envelope and the room drawn together.
     </p>
 
-    <div class="mt-14 grid gap-8 md:grid-cols-2">
-      <a href="/services/architecture" class="group border border-line p-8 md:p-10">
-        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">01</p>
-        <h2 class="mt-4 font-serif text-3xl font-medium group-hover:text-brass">Architectural design</h2>
-        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
-          New homes, extensions, and commercial shells. Concept, drawings, and site review.
-        </p>
-      </a>
-      <a href="/services/interior-design" class="group border border-line p-8 md:p-10">
-        <p class="text-[11px] uppercase tracking-[0.2em] text-brass">02</p>
-        <h2 class="mt-4 font-serif text-3xl font-medium group-hover:text-brass">Interior design</h2>
-        <p class="mt-3 text-sm font-light leading-relaxed text-muted">
-          Apartments, villas, workplaces, and hospitality. Layout, materials, furniture, lighting.
-        </p>
-      </a>
+    <div class="mt-14 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => (
+          <a
+            href={
+              service.title === 'Plan approval'
+                ? '/services/plan-approval'
+                : service.title === 'Planning & Architectural Design'
+                  ? '/services/planning-architectural-design'
+                    : service.title === 'Interior design'
+                      ? '/services/interior-design'
+                      : service.title === 'Construction'
+                        ? '/services/construction'
+                        : service.title === 'Renovation'
+                          ? '/services/renovation'
+                          : service.title === 'Product design'
+                            ? '/services/product-design'
+                        : '/contact'
+            }
+            class="group bg-paper p-8 md:p-10"
+          >
+            <p class="text-[11px] uppercase tracking-[0.2em] text-brass">{service.number}</p>
+            <h2 class="mt-4 font-serif text-3xl font-medium group-hover:text-brass">{service.title}</h2>
+            <p class="mt-3 text-sm font-light leading-relaxed text-muted">{service.text}</p>
+          </a>
+        ))
+      }
     </div>
 
     <div class="mt-14 max-w-2xl">
